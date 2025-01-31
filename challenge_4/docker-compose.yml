@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+  flask-app-1:
+    build:
+      context: ./challenge_4_1
+    container_name: challenge_4_1
+    ports:
+      - "5001:5000"
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/
+    networks:
+      - app-network
+
+
+  flask-app-2:
+    build:
+      context: ./challenge_4_2
+    container_name: challenge_4_2
+    ports:
+      - "5002:5000"  # Expose app 2 on port 5002
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./NGINX.conf:/etc/nginx/nginx.conf  # Mount custom NGINX configuration
+    depends_on:
+      - flask-app-1
+      - flask-app-2
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

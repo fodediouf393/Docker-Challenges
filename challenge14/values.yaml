@@ -1,0 +1,36 @@
+namespace: fdiouf
+
+configMap:
+  database:
+    host: "mongodb"
+    port: "27017"
+
+mongodb:
+  namespace: "fdiouf"
+  storage: "100Mi"
+
+webnodb:
+  image: "fodediouf/webnodb:3.0"
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "100Mi"
+    limits:
+      cpu: "500m"
+      memory: "200Mi"
+
+webdb:
+  image: "fdiouf/webdb:3.0"
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "100Mi"
+    limits:
+      cpu: "500m"
+      memory: "200Mi"
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 60

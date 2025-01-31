@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 18px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #f4f4f4;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Application Flask c3</h1>
+    <p><strong>Nom:</strong> {{ name }}</p>
+    <p><strong>Nom Projet:</strong> {{ project_name }}</p>
+    <p><strong>Version:</strong> {{ version }}</p>
+    <p><strong>Server Hostname:</strong> {{ hostname }}</p>
+    <p><strong>Date:</strong> {{ current_date }}</p>
+
+    <h2>10 derniers enregistrements</h2>
+    <ul>
+        {% for record in last_records %}
+            <li>IP: {{ record.ip }} - Date: {{ record.date }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

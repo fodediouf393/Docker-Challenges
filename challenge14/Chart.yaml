@@ -1,0 +1,6 @@
+apiVersion: v2
+name: my-k8s-infra
+description: Helm chart for deploying WebNoDB, WebDB, and MongoDB with autoscaling
+type: application
+version: 1.0.0
+appVersion: "3.0"

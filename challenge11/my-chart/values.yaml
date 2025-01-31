@@ -1,0 +1,16 @@
+# MongoDB configuration
+mongodb:
+  hostname: "mongodb"
+  port: 27017
+
+# Webnodb configuration
+webnodb:
+  replicas: 3
+  image: fodediouf/webnodb
+  port: 5000
+
+# Webdb configuration
+webdb:
+  replicas: 3
+  image: fodediouf/webdb
+  port: 5000

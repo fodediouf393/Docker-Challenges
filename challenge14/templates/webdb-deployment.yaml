@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webdb
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.autoscaling.minReplicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: webdb
+  template:
+    metadata:
+      labels:
+        app: webdb
+    spec:
+      containers:
+        - name: webdb
+          image: "{{ .Values.webdb.image }}"
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: {{ .Values.webdb.resources.requests.cpu }}
+              memory: {{ .Values.webdb.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.webdb.resources.limits.cpu }}
+              memory: {{ .Values.webdb.resources.limits.memory }}

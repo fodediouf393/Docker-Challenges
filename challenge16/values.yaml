@@ -1,0 +1,14 @@
+namespace: fdiouf
+
+mongodb:
+  replicas: 3
+  storage: "2Gi"
+  replicaSetName: "rs0"
+
+resources:
+  requests:
+    cpu: "200m"
+    memory: "200Mi"
+  limits:
+    cpu: "500m"
+    memory: "500Mi"

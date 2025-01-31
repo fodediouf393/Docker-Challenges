@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webnodb
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.autoscaling.minReplicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: webnodb
+  template:
+    metadata:
+      labels:
+        app: webnodb
+    spec:
+      containers:
+        - name: webnodb
+          image: "{{ .Values.webnodb.image }}"
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: {{ .Values.webnodb.resources.requests.cpu }}
+              memory: {{ .Values.webnodb.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.webnodb.resources.limits.cpu }}
+              memory: {{ .Values.webnodb.resources.limits.memory }}

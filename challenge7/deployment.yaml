@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webnodb-deployment
+  namespace: fdiouf  # Remplacez par votre namespace
+  labels:
+    app: webnodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webnodb
+  template:
+    metadata:
+      labels:
+        app: webnodb
+    spec:
+      containers:
+      - name: webnodb
+        image: fodediouf/webnodb  # Remplacez par le nom de votre image Docker
+        ports:
+        - containerPort: 5000  # Le port sur lequel votre application Flask écoute
+        resources:
+          requests:
+            cpu: "0.1"  # 1/10 de CPU
+            memory: "100Mi"  # 100 Mo de mémoire
+          limits:
+            cpu: "0.2"  # 1/5 de CPU
+            memory: "200Mi"  # 200 Mo de mémoire

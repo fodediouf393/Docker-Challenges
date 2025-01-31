@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  web:
+    build: .  # Utilise le Dockerfile dans le répertoire courant
+    image: fodediouf/flask-app:latest
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - app-network
+
+volumes:
+  mongodb-data:
+
+networks:
+  app-network:

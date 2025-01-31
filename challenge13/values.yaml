@@ -1,0 +1,26 @@
+namespace: fdiouf
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "100Mi"
+  limits:
+    cpu: "200m"
+    memory: "200Mi"
+
+configMap:
+  database:
+    host: "mongodb"
+    port: "27017"
+    
+mongodb:
+  namespace: "fdiouf"
+  storage: "100Mi"
+
+webnodb:
+  image: "fodediouf/webnodb:3.0"
+
+webdb:
+  image: "fodediouf/webdb:3.0"
+
+    

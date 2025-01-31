@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webnodb-deployment
+  namespace: fdiouf
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webnodb
+  template:
+    metadata:
+      labels:
+        app: webnodb
+    spec:
+      containers:
+      - name: webnodb
+        image: fodediouf/webnodb:1.0
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            cpu: "0.1"
+            memory: "100Mi"
+          limits:
+            cpu: "0.2"
+            memory: "200Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webnodb-service
+  namespace: fdiouf
+spec:
+  type: ClusterIP
+  selector:
+    app: webnodb
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000

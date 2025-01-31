@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webnodb
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.webnodb.replicas }}
+  selector:
+    matchLabels:
+      app: webnodb
+  template:
+    metadata:
+      labels:
+        app: webnodb
+    spec:
+      containers:
+      - name: webnodb
+        image: {{ .Values.webnodb.image }}
+        ports:
+        - containerPort: {{ .Values.webnodb.port }}
+        env:
+        - name: MONGODB_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: mongodb-config
+              key: MONGODB_HOSTNAME
+        - name: MONGODB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: mongodb-config
+              key: MONGODB_PORT
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
